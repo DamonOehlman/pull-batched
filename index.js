@@ -18,7 +18,6 @@ function batch(count) {
 
     return function next(abort, callback) {
       if (abort) {
-        debug(`downstream end`);
         return callback(end);
       }
 
@@ -55,11 +54,9 @@ function separate() {
   return function(read) {
     let performingSeparation = false;
 
-    return function next(end, callback) {
-      // if the message from downstream is to end, end immediately
-      if (end) {
-        debug('downstream end');
-        return callback(end);
+    return function next(abort, callback) {
+      if (abort) {
+        return callback(abort);
       }
 
       // if we are performing a separation operation abort
@@ -67,10 +64,9 @@ function separate() {
         return;
       }
 
-      read(end, function(readEnd, data) {
-        if (readEnd) {
-          debug('upstream end');
-          return callback(readEnd);
+      read(abort, function(end, data) {
+        if (end) {
+          return callback(end);
         }
 
         if (!Array.isArray(data)) {
@@ -90,12 +86,12 @@ function separate() {
         debug(`separating a collection of ${data.length} items`);
         performingSeparation = true;
         try {
-          head.forEach(data => callback(readEnd, data))
+          head.forEach(data => callback(false, data))
         } finally {
           performingSeparation = false;
         }
 
-        callback(readEnd, tailItem);
+        callback(false, tailItem);
       });
     }
   }
