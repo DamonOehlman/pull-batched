@@ -1,0 +1,16 @@
+{
+  "name": "pull-batch",
+  "version": "1.0.0",
+  "description": "Batch and separate items in a pull-stream",
+  "main": "index.js",
+  "repository": "https://github.com/DamonOehlman/pull-batch.git",
+  "author": "Damon Oehlman <damon@canva.com>",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^3.1.0"
+  },
+  "devDependencies": {
+    "pull-stream": "^3.6.1",
+    "tape": "^4.8.0"
+  }
+}
