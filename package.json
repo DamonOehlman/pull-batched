@@ -4,13 +4,18 @@
   "description": "Batch and separate items in a pull-stream",
   "main": "index.js",
   "repository": "https://github.com/DamonOehlman/pull-batch.git",
-  "author": "Damon Oehlman <damon@canva.com>",
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "debug": "^3.1.0"
   },
   "devDependencies": {
+    "gendocs": "^2.0.1",
     "pull-stream": "^3.6.1",
     "tape": "^4.8.0"
+  },
+  "scripts": {
+    "test": "node test/all.js",
+    "gendocs": "gendocs > README.md"
   }
 }

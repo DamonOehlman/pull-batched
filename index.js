@@ -1,7 +1,14 @@
 const createDebugger = require('debug');
 
+/**
+  # pull-batch
+
+  A simple [`pull-stream`](https://github.com/pull-stream/pull-stream) through that
+  can be used to batch or separate items in groups of items.
+**/
+
 function batch(count) {
-  const debug = createDebugger('cleanser:batch');
+  const debug = createDebugger('pull-stream:batch');
 
   return function(read) {
     // initialise the buffer to collect the items
@@ -43,7 +50,7 @@ function batch(count) {
 };
 
 function separate() {
-  const debug = createDebugger('cleanser:separate');
+  const debug = createDebugger('pull-stream:separate');
   
   return function(read) {
     let performingSeparation = false;
