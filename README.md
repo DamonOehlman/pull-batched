@@ -22,7 +22,7 @@ Items can be batched using the `batch` through.
 
 ```js
 const { pull, values, log } = require('pull-stream');
-const { batch } = require('pull-batch');
+const { batch } = require('pull-batched');
 
 pull(
   values([1, 2, 3, 4, 5, 6]),
@@ -43,7 +43,7 @@ And separated using the `separate` through:
 
 ```js
 const { pull, values, log } = require('pull-stream');
-const { separate } = require('pull-batch');
+const { separate } = require('pull-batched');
 
 pull(
   values([[1, 2], [3, 4], [5, 6]]),
