@@ -61,3 +61,25 @@ test('correctly batches an async, ended stream (e.g. using take)', t => {
     })
   )
 });
+
+test('ensure batch throws an exception if not provided a count', t => {
+  t.plan(1);
+  t.throws(() => {
+    pull(
+      values([1, 2, 3, 4]),
+      batch(),
+      log()
+    );
+  });
+});
+
+test('ensure batch throws an exception if provided a non-numeric value for count', t => {
+  t.plan(1);
+  t.throws(() => {
+    pull(
+      values([1, 2, 3, 4]),
+      batch({}),
+      log()
+    );
+  });
+});

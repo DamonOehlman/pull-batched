@@ -10,6 +10,10 @@ const createDebugger = require('debug');
 function batch(count) {
   const debug = createDebugger('pull-stream:batch');
 
+  if (typeof count != 'number') {
+    throw new Error('a numeric count must be specified for batching');
+  }
+
   return function(read) {
     // initialise the buffer to collect the items
     // TODO: probably need a more memory efficient structure
