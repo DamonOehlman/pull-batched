@@ -1,6 +1,6 @@
 {
   "name": "pull-batched",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Batch and separate items in a pull-stream",
   "main": "index.js",
   "repository": "https://github.com/DamonOehlman/pull-batched.git",
