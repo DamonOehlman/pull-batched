@@ -1,13 +1,13 @@
-# pull-batch
+# pull-batched
 
 A simple [`pull-stream`](https://github.com/pull-stream/pull-stream) through that
 can be used to batch or separate items in groups of items.
 
-[![NPM](https://nodei.co/npm/pull-batch.png)](https://nodei.co/npm/pull-batch/)
+[![NPM](https://nodei.co/npm/pull-batched.png)](https://nodei.co/npm/pull-batched/)
 
-[![Build Status](https://api.travis-ci.org/DamonOehlman/pull-batch.svg?branch=master)](https://travis-ci.org/DamonOehlman/pull-batch)
+[![Build Status](https://api.travis-ci.org/DamonOehlman/pull-batched.svg?branch=master)](https://travis-ci.org/DamonOehlman/pull-batched)
 
-[![bitHound Score](https://www.bithound.io/github/DamonOehlman/pull-batch/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/pull-batch)
+[![bitHound Score](https://www.bithound.io/github/DamonOehlman/pull-batched/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/pull-batched)
 
 ## Example Usage
 
