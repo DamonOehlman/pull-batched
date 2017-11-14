@@ -1,5 +1,5 @@
 const { batch } = require('../');
-const { pull, values, map, drain } = require('pull-stream');
+const { pull, values, map, asyncMap, take, drain } = require('pull-stream');
 const test = require('tape');
 
 test('can successfully batch a synchronous source', t => {
@@ -10,6 +10,54 @@ test('can successfully batch a synchronous source', t => {
     drain(items => {
       t.ok(Array.isArray(items));
       t.equal(items.length, 2);
+    })
+  )
+});
+
+test('can successfully batch an asynced stream', t => {
+  t.plan(4);
+  pull(
+    values([1, 2, 3, 4]),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
+    batch(2),
+    drain(items => {
+      t.ok(Array.isArray(items));
+      t.equal(items.length, 2);
+    })
+  )
+});
+
+test('correctly batches an ended stream (e.g. using take)', t => {
+  const items = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  t.plan(6);
+  pull(
+    values(items.slice()),
+    take(5),
+    batch(2),
+    drain(batched => {
+      t.ok(Array.isArray(batched));
+      t.deepEqual(items.splice(0, batched.length), batched)
+    })
+  )
+});
+
+test('correctly batches an async, ended stream (e.g. using take)', t => {
+  const items = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  t.plan(6);
+  pull(
+    values(items.slice()),
+    take(5),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
+    batch(2),
+    drain(batched => {
+      t.ok(Array.isArray(batched));
+      t.deepEqual(items.splice(0, batched.length), batched)
     })
   )
 });
