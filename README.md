@@ -1,4 +1,3 @@
-
 # pull-batch
 
 A simple [`pull-stream`](https://github.com/pull-stream/pull-stream) through that
@@ -6,12 +5,49 @@ can be used to batch or separate items in groups of items.
 
 [![NPM](https://nodei.co/npm/pull-batch.png)](https://nodei.co/npm/pull-batch/)
 
+[![Build Status](https://api.travis-ci.org/DamonOehlman/pull-batch.svg?branch=master)](https://travis-ci.org/DamonOehlman/pull-batch)
 
+[![bitHound Score](https://www.bithound.io/github/DamonOehlman/pull-batch/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/pull-batch)
 
+## Example Usage
 
-## License(s)
+Items can be batched using the `batch` through.
 
-### MIT
+```js
+const { pull, values, log } = require('pull-stream');
+const { batch } = require('pull-batch');
+
+pull(
+  values([1, 2, 3, 4, 5, 6]),
+  batch(2),
+  log()
+);
+```
+
+Which generates the following output:
+
+```
+[ 1, 2 ]
+[ 3, 4 ]
+[ 5, 6 ]
+```
+
+And separated using the `separate` through:
+
+```js
+const { pull, values, log } = require('pull-stream');
+const { separate } = require('pull-batch');
+
+pull(
+  values([[1, 2], [3, 4], [5, 6]]),
+  separate(),
+  log()
+);
+```
+
+Which generates the output of digits 1 - 6 on individual lines.
+
+## LICENSE
 
 Copyright (c) 2017 Damon Oehlman <damon.oehlman@gmail.com>
 
@@ -33,3 +69,4 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
