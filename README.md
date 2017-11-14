@@ -9,6 +9,13 @@ can be used to batch or separate items in groups of items.
 
 [![bitHound Score](https://www.bithound.io/github/DamonOehlman/pull-batched/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/pull-batched)
 
+## Other implementations
+
+Found after implementing this package (sigh the issues of package discoverability):
+
+* [`pull-batch`](https://github.com/pgte/pull-batch)
+
+
 ## Example Usage
 
 Items can be batched using the `batch` through.
