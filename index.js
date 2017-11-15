@@ -18,27 +18,16 @@ function batch(count) {
     // initialise the buffer to collect the items
     // TODO: probably need a more memory efficient structure
     const buffer = [];
-    let drainingBuffer = false;
 
     return function next(abort, callback) {
       if (abort) {
-        return callback(end);
-      }
-
-      if (buffer.length >= count) {
-        debug(`collected ${count} items, sending data`);
-        return callback(false, buffer.splice(0));
+        return callback(abort);
       }
 
       read(abort, function(end, data) {
         if (end) {
-          if (drainingBuffer) {
-            return;
-          }
-
           debug(`upstream end, ending and sending ${buffer.length} items`);
           if (buffer.length > 0) {
-            drainingBuffer = true;
             callback(false, buffer.splice(0));
           }
 
@@ -46,7 +35,13 @@ function batch(count) {
         }
 
         buffer.push(data);
-        next(end, callback);
+        if (buffer.length >= count) {
+          const items = buffer.splice(0);
+          debug(`collected ${count} items, sending data`);
+          return callback(false, items);
+        }
+
+        next(false, callback);
       });
     };
   };
