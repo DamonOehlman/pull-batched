@@ -1,5 +1,5 @@
 const { batch } = require('../');
-const { pull, values, map, asyncMap, take, drain } = require('pull-stream');
+const { pull, values, map, asyncMap, take, drain, onEnd } = require('pull-stream');
 const test = require('tape');
 
 test('can successfully batch a synchronous source', t => {
@@ -82,4 +82,15 @@ test('ensure batch throws an exception if provided a non-numeric value for count
       log()
     );
   });
+});
+
+test('ensure batching results in a single end call', t => {
+  t.plan(1);
+  pull(
+    values([1, 2, 3, 4]),
+    batch(2),
+    onEnd(() => {
+      t.pass('received an end signal');
+    })
+  )
 });
