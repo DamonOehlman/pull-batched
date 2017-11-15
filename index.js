@@ -46,7 +46,7 @@ function batch(count) {
         }
 
         buffer.push(data);
-        setImmediate(() => next(end, callback));
+        next(end, callback);
       });
     };
   };
