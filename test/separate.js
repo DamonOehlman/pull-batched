@@ -16,7 +16,7 @@ test('can successfully separate a synchronous source', t => {
   )
 });
 
-test('can successfully separate an asynced stream', t => {
+test('can successfully separate an asynced stream (upstream)', t => {
   let expectedValue = 1;
 
   t.plan(4);
@@ -26,6 +26,43 @@ test('can successfully separate an asynced stream', t => {
       setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
     }),
     separate(),
+    drain(value => {
+      t.equal(value, expectedValue);
+      expectedValue += 1;
+    })
+  )
+});
+
+test('can successfully separate an asynced stream (downstream)', t => {
+  let expectedValue = 1;
+
+  t.plan(4);
+  pull(
+    values([[1, 2], [3, 4]]),
+    separate(),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
+    drain(value => {
+      t.equal(value, expectedValue);
+      expectedValue += 1;
+    })
+  )
+});
+
+test('can successfully separate an asynced stream (upstream + downstream)', t => {
+  let expectedValue = 1;
+
+  t.plan(4);
+  pull(
+    values([[1, 2], [3, 4]]),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
+    separate(),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
     drain(value => {
       t.equal(value, expectedValue);
       expectedValue += 1;

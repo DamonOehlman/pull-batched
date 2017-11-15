@@ -14,7 +14,7 @@ test('can successfully batch a synchronous source', t => {
   )
 });
 
-test('can successfully batch an asynced stream', t => {
+test('can successfully batch an asynced stream (upstream)', t => {
   t.plan(4);
   pull(
     values([1, 2, 3, 4]),
@@ -22,6 +22,39 @@ test('can successfully batch an asynced stream', t => {
       setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
     }),
     batch(2),
+    drain(items => {
+      t.ok(Array.isArray(items));
+      t.equal(items.length, 2);
+    })
+  )
+});
+
+test('can successfully batch an asynced stream (downstream)', t => {
+  t.plan(4);
+  pull(
+    values([1, 2, 3, 4]),
+    batch(2),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
+    drain(items => {
+      t.ok(Array.isArray(items));
+      t.equal(items.length, 2);
+    })
+  )
+});
+
+test('can successfully batch an asynced stream (upstream + downstream)', t => {
+  t.plan(4);
+  pull(
+    values([1, 2, 3, 4]),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
+    batch(2),
+    asyncMap((data, callback) => {
+      setTimeout(() => callback(false, data), Math.floor(Math.random() * 200));
+    }),
     drain(items => {
       t.ok(Array.isArray(items));
       t.equal(items.length, 2);
