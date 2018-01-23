@@ -5,7 +5,12 @@ module.exports = function() {
     let queued = [];
 
     return function next(abort, callback) {
-      if (queued.length > 0 && !abort) {
+      if (abort) {
+        debug('received abort signal, fin');
+        return callback(abort);
+      }
+
+      if (queued.length > 0) {
         return sendNextQueued();
       }
 
@@ -30,8 +35,9 @@ module.exports = function() {
       function sendNextQueued() {
         const nextItem = queued[0];
         queued = queued.slice(1);
+        debug('sending next item: ', nextItem);
         return callback(false, nextItem);
       }
-    }
-  }
+    };
+  };
 };
