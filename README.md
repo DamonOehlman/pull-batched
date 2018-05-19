@@ -5,9 +5,7 @@ can be used to batch or separate items in groups of items.
 
 [![NPM](https://nodei.co/npm/pull-batched.png)](https://nodei.co/npm/pull-batched/)
 
-[![Build Status](https://api.travis-ci.org/DamonOehlman/pull-batched.svg?branch=master)](https://travis-ci.org/DamonOehlman/pull-batched)
-
-[![bitHound Score](https://www.bithound.io/github/DamonOehlman/pull-batched/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/pull-batched)
+[![Build Status](https://api.travis-ci.org/DamonOehlman/pull-batched.svg?branch=master)](https://travis-ci.org/DamonOehlman/pull-batched) [![Maintainability](https://api.codeclimate.com/v1/badges/93573dcd02f1f8d3380d/maintainability)](https://codeclimate.com/github/DamonOehlman/pull-batched/maintainability)
 
 ## Other implementations
 
@@ -58,7 +56,7 @@ Which generates the output of digits 1 - 6 on individual lines.
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2018 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
